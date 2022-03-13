@@ -8,10 +8,11 @@ import java.lang.annotation.Target;
 import com.letscode.moviesbattle.MoviesBattleApplication;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 
 @SpringBootTest(classes = MoviesBattleApplication.class,
     webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-//@Sql(scripts = {"classpath:sql/erase-data.sql"})
+@Sql(scripts = {"classpath:sql/erase-data.sql"})
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MoviesBattleSpringBootTest {

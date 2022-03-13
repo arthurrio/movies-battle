@@ -31,11 +31,10 @@ public class GameEntity {
   @Column(name = "player")
   private String player;
 
-
   @Column(name = "total_point", nullable = false)
   private Long totalPoint;
 
-  @Column(name = "total_point", nullable = false)
+  @Column(name = "total_round", nullable = false)
   private Long totalRound;
 
   @Column(name = "dat_start", nullable = false)

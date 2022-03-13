@@ -38,8 +38,8 @@ public class GameRestController {
   }
 
   @GetMapping("/{gameId}/round")
-  ResponseEntity<GameRoundEntity> getRound(@PathVariable("gameId") Long gameId ){
-    return ResponseEntity.ok(gameRoundService.findGameRoundByGame(gameId));
+  ResponseEntity<GameRoundEntity> getRound(@PathVariable("gameId") Long gameId, Authentication authentication) {
+    return ResponseEntity.ok(gameRoundService.findGameRoundByGame(gameId, authentication.getName()));
   }
 
   @PostMapping("/{gameId}")

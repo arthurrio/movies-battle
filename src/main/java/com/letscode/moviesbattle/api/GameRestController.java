@@ -5,9 +5,9 @@ import com.letscode.moviesbattle.entity.GameRoundEntity;
 import com.letscode.moviesbattle.service.GameRoundService;
 import com.letscode.moviesbattle.service.GameService;
 import com.letscode.moviesbattle.vo.request.GamePostRequest;
-import com.letscode.moviesbattle.vo.response.GamePostResponse;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +27,8 @@ public class GameRestController {
   private GameRoundService gameRoundService;
 
   @GetMapping()
-  ResponseEntity<Iterable<GameEntity>> findAllByPlayer() {
-    return ResponseEntity.ok(gameService.getAllGame());
+  ResponseEntity<GameEntity> findAllByPlayer(Authentication authentication) {
+    return ResponseEntity.ok(gameService.startGame(authentication.getName()));
   }
 
   @DeleteMapping

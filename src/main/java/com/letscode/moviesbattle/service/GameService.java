@@ -12,8 +12,11 @@ public class GameService {
   @Autowired
   private GameRepository gameRepository;
 
-  public Iterable<GameEntity> getAllGame() {
-    return gameRepository.findAll();
+  public GameEntity startGame(String player) {
+
+    GameEntity game = gameRepository.findByEndIsNullAndPlayer(player);
+
+    return game;
   }
 
   public GameEntity endGame(){

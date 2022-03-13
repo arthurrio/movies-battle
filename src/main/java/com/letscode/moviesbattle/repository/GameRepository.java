@@ -8,4 +8,6 @@ public interface GameRepository extends CrudRepository<GameEntity, Long> {
 
   GameEntity findByEndIsNullAndPlayer(String player);
 
+  GameEntity findByEndIsNullAndPlayerAndId(String player, Long id);
+
 }

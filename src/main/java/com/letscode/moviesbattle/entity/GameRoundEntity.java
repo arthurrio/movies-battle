@@ -35,11 +35,11 @@ public class GameRoundEntity {
   @Column(name = "round_number")
   private Long roundNumber;
 
-  @Column(name = "id_card_1")
-  private Long card1Id;
+  @Column(name = "id_movie_1")
+  private Integer movie1Id;
 
-  @Column(name = "id_card_2")
-  private Long card2Id;
+  @Column(name = "id_movie_2")
+  private Integer movie2Id;
 
   @Column
   private Integer answer;

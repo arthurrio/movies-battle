@@ -1,20 +1,29 @@
 package com.letscode.moviesbattle.service;
 
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Random;
 
 import javax.transaction.Transactional;
 
 import com.letscode.moviesbattle.entity.GameRoundEntity;
+import com.letscode.moviesbattle.entity.MovieEntity;
 import com.letscode.moviesbattle.repository.GameRepository;
 import com.letscode.moviesbattle.repository.GameRoundRepository;
+import com.letscode.moviesbattle.repository.MovieRepository;
 
 import org.springframework.stereotype.Service;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @Service
 public class GameRoundService {
 
+  public static final int MAX_MOVIE_ID = 114;
   private GameRoundRepository gameRoundRepository;
   private GameRepository gameRepository;
+  private MovieRepository movieRepository;
 
   @Transactional
   public GameRoundEntity findGameRoundByGame(final Long gameId, final String player) {
@@ -22,19 +31,22 @@ public class GameRoundService {
 
     if (Objects.isNull(round)) {
 
-      final var game = gameRepository.findById(gameId);
+      final var game = gameRepository.findByEndIsNullAndPlayerAndId(player,gameId);
 
-      if (game.isPresent() && player.equals(game.get().getPlayer())) {
+      if (Objects.nonNull(game)) {
+
+        MovieShuffle movieShuffle = shuffle(gameId);
+
 
         // Criar Round
         final var newGameRound =
             gameRoundRepository.save(GameRoundEntity.builder().gameId(gameId).player(player)
-                .card2Id(1L)
-                .card1Id(2L)
-                .roundNumber(game.get().getTotalRound() + 1)
+                .movie2Id(movieShuffle.getMovie2().getId())
+                .movie1Id(movieShuffle.getMovie1().getId())
+                .roundNumber(game.getTotalRound() + 1)
                 .build());
 
-        game.get().setTotalRound(newGameRound.getRoundNumber());
+        game.setTotalRound(newGameRound.getRoundNumber());
 
         return newGameRound;
       }
@@ -54,4 +66,47 @@ public class GameRoundService {
 
     return gameRound;
   }
+
+
+  public MovieShuffle shuffle (Long gameId) {
+
+    Random random = new Random();
+    int movieId1, movieId2;
+
+    Optional<MovieEntity> movie1;
+    GameRoundEntity gameRoundCheck;
+    GameRoundEntity gameRoundCheckReverse;
+    Optional<MovieEntity> movie2;
+    do {
+      movieId1 = random.nextInt(MAX_MOVIE_ID);
+      do {
+        movie1 = movieRepository.findById(movieId1);
+      } while (movie1.isEmpty());
+
+      movieId2 = random.nextInt(MAX_MOVIE_ID);
+      do {
+        movie2 = movieRepository.findById(movieId2);
+      } while (movie2.isEmpty());
+
+
+      gameRoundCheck = gameRoundRepository.findGameRoundEntityByGameIdAndAndMovie1IdAndMovie2Id(gameId, movieId1, movieId2);
+
+      gameRoundCheckReverse
+          = gameRoundRepository.findGameRoundEntityByGameIdAndAndMovie1IdAndMovie2Id(gameId, movieId2, movieId1);
+
+
+    } while (Objects.nonNull(gameRoundCheck) || Objects.nonNull(gameRoundCheckReverse));
+
+      return new MovieShuffle(movie1.get(), movie2.get());
+  }
+
+}
+
+@AllArgsConstructor
+@Getter
+class MovieShuffle {
+
+  private MovieEntity movie1;
+  private MovieEntity movie2;
+
 }

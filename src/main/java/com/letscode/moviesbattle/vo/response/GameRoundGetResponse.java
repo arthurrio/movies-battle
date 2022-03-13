@@ -13,7 +13,6 @@ public class GameRoundGetResponse {
   private Long round;
   private String card1;
   private String card2;
-  private String status;
   private String message;
 
   public static GameRoundGetResponse from(GameRoundEntity gameRoundEntity, String card1, String card2) {
@@ -23,6 +22,10 @@ public class GameRoundGetResponse {
         .card1(card1)
         .card2(card2)
         .build();
+  }
+
+  public static GameRoundGetResponse buildNotfound() {
+    return GameRoundGetResponse.builder().message("Não foi encontrado um jogo/rodada para esse jogador").build();
   }
 
 }

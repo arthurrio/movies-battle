@@ -26,9 +26,11 @@ public class GameService {
   public GameEntity startGame(String player) {
 
     final GameEntity game = gameRepository.findByEndIsNullAndPlayer(player);
-    if(Objects.isNull(game)){
+    if (Objects.isNull(game)) {
 
-      return gameRepository.save(GameEntity.builder().player(player).totalPoint(0L).start(currentTime()).build());
+      return gameRepository.save(GameEntity.builder()
+          .totalRound(0L)
+          .player(player).totalPoint(0L).start(currentTime()).build());
 
     }
 
@@ -36,11 +38,11 @@ public class GameService {
   }
 
   @Transactional
-  public GameDeleteResponse endGame(String player){
+  public GameDeleteResponse endGame(String player) {
 
     final GameEntity game = gameRepository.findByEndIsNullAndPlayer(player);
 
-    if(Objects.isNull(game)){
+    if (Objects.isNull(game)) {
 
       return GameDeleteResponse.builder().status(GAME_DONT_EXIST).build();
 
@@ -52,7 +54,7 @@ public class GameService {
   }
 
 
-  public LocalDateTime currentTime(){
+  public LocalDateTime currentTime() {
     return LocalDateTime.now();
   }
 

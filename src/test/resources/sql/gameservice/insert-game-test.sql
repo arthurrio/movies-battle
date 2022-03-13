@@ -1,1 +1,1 @@
-insert into GAME(id_game, player, total_point, dat_start,dat_end) values (1,'player_test',0,'2022-03-13 10:00:00',null);
+insert into GAME(id_game, player,total_round, total_point, dat_start,dat_end) values (1,'player_test',0,0,'2022-03-13 10:00:00',null);

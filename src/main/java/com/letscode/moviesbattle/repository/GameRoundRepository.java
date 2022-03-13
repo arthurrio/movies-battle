@@ -6,6 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface GameRoundRepository extends CrudRepository<GameRoundEntity, Long> {
 
-  GameRoundEntity findGameRoundByPointIsNullAndGameId(Long gameId);
+  GameRoundEntity findGameRoundEntityByPointIsNullAndGameIdAndPlayer(Long gameId, String player);
+
+  GameRoundEntity findFirstByGameIdAndPlayerOrderByRoundNumberDesc(Long gameId, String player);
 
 }

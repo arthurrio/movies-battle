@@ -29,6 +29,9 @@ public class GameRoundEntity {
   @Column(name = "id_game")
   private Long gameId;
 
+  @Column(name = "player")
+  private String player;
+
   @Column(name = "round_number")
   private Long roundNumber;
 

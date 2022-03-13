@@ -7,19 +7,23 @@ import com.letscode.moviesbattle.entity.GameEntity;
 import lombok.Builder;
 import lombok.Data;
 
+import static com.letscode.moviesbattle.util.StatusMessage.GAME_ENDED;
+
 @Data
 @Builder
 public class GameDeleteResponse {
 
   private Long gameId;
   private LocalDateTime endGame;
+  private String player;
   private String status;
 
-  public GameDeleteResponse from(GameEntity game){
+  public static GameDeleteResponse from(GameEntity game){
     return GameDeleteResponse.builder()
         .endGame(game.getEnd())
         .gameId(game.getId())
-        .status("Game encerrado!")
+        .player(game.getPlayer())
+        .status(GAME_ENDED)
         .build();
   }
 

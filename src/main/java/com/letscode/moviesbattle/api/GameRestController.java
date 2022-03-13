@@ -5,6 +5,7 @@ import com.letscode.moviesbattle.entity.GameRoundEntity;
 import com.letscode.moviesbattle.service.GameRoundService;
 import com.letscode.moviesbattle.service.GameService;
 import com.letscode.moviesbattle.vo.request.GamePostRequest;
+import com.letscode.moviesbattle.vo.response.GameDeleteResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -32,7 +33,7 @@ public class GameRestController {
   }
 
   @DeleteMapping
-  ResponseEntity<GameEntity> endGame(Authentication authentication){
+  ResponseEntity<GameDeleteResponse> endGame(Authentication authentication){
     return ResponseEntity.ok(gameService.endGame(authentication.getName()));
   }
 

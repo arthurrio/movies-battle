@@ -1,1 +1,2 @@
 TRUNCATE table GAME;
+TRUNCATE table RANK;

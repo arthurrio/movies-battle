@@ -3,7 +3,11 @@ package com.letscode.moviesbattle.api;
 import com.letscode.moviesbattle.util.MoviesBattleSpringBootTest;
 
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.web.server.LocalServerPort;
+
+import io.restassured.RestAssured;
 
 import static io.restassured.RestAssured.given;
 
@@ -11,6 +15,13 @@ import static io.restassured.RestAssured.given;
 public class GameRestControllerTest {
 
   private GameRestController gameRestController;
+  @LocalServerPort
+  private int port;
+
+  @BeforeEach
+  public void setUp() {
+    RestAssured.port = port;
+  }
 
   @Test
   public void shouldReturnForbiddenStatusWhenDontAuth() {

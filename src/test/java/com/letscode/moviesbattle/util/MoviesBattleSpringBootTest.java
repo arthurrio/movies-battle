@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 @SpringBootTest(classes = MoviesBattleApplication.class,
-    webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(scripts = {"classpath:sql/erase-data.sql"})
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

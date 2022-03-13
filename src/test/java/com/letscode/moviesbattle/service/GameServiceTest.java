@@ -51,6 +51,7 @@ public class GameServiceTest {
   }
 
   @Test
+  @Sql(scripts = {"classpath:sql/erase-data.sql"})
   @Sql(scripts = {"classpath:sql/gameservice/insert-game-test-ended.sql"})
   public void shouldCreateNewGameWhenDontHaveAGameAlreadyStarted() {
 

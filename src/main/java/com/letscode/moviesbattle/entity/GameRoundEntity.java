@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode
 @Table(name = "GAME_ROUND")
 public class GameRoundEntity {
 
@@ -26,22 +28,22 @@ public class GameRoundEntity {
   @Column(name = "id_round")
   private Long id;
 
-  @Column(name = "id_game")
+  @Column(name = "id_game", nullable = false)
   private Long gameId;
 
-  @Column(name = "player")
+  @Column(name = "player", nullable = false)
   private String player;
 
-  @Column(name = "round_number")
+  @Column(name = "round_number", nullable = false)
   private Long roundNumber;
 
-  @Column(name = "id_movie_1")
+  @Column(name = "id_movie_1",nullable = false)
   private Integer movie1Id;
 
-  @Column(name = "id_movie_2")
+  @Column(name = "id_movie_2",nullable = false)
   private Integer movie2Id;
 
-  @Column
+  @Column(name = "answer")
   private Integer answer;
 
   @Column(name = "point")

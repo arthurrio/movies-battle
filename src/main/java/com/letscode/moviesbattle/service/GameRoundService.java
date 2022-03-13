@@ -16,14 +16,16 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class GameRoundService {
 
   public static final int MAX_MOVIE_ID = 114;
-  private GameRoundRepository gameRoundRepository;
-  private GameRepository gameRepository;
-  private MovieRepository movieRepository;
+  private final GameRoundRepository gameRoundRepository;
+  private final GameRepository gameRepository;
+  private final MovieRepository movieRepository;
 
   @Transactional
   public GameRoundEntity findGameRoundByGame(final Long gameId, final String player) {

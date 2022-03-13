@@ -27,7 +27,7 @@ public class RankEntity {
   private Long id;
 
   @Column(name = "player", nullable = false)
-  private Long player;
+  private String player;
 
   @Column(name = "total_point", nullable = false)
   private Long totalPoint;

@@ -41,6 +41,9 @@ public class GameRoundEntity {
   @Column(name = "id_card_2")
   private Long card2Id;
 
+  @Column
+  private Integer answer;
+
   @Column(name = "point")
   private Integer point;
 

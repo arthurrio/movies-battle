@@ -32,8 +32,8 @@ public class GameRestController {
   }
 
   @DeleteMapping
-  ResponseEntity<GameEntity> endGame(){
-    return ResponseEntity.ok(gameService.endGame());
+  ResponseEntity<GameEntity> endGame(Authentication authentication){
+    return ResponseEntity.ok(gameService.endGame(authentication.getName()));
   }
 
   @GetMapping("/{gameId}/round")

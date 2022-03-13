@@ -30,7 +30,16 @@ public class GameService {
     return game;
   }
 
-  public GameEntity endGame(){
+  public GameEntity endGame(String player){
+
+    final GameEntity game = gameRepository.findByEndIsNullAndPlayer(player);
+
+    if(Objects.isNull(game)){
+
+      return gameRepository.save(GameEntity.builder().player(player).totalPoint(0L).start(currentTime()).build());
+
+    }
+
     return null;
   }
 

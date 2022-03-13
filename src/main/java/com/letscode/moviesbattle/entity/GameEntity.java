@@ -25,7 +25,7 @@ public class GameEntity {
   @Id
   @GeneratedValue(generator = "id_game_seq")
   @SequenceGenerator(name = "id_game_seq", sequenceName = "id_game_seq", allocationSize = 1)
-  @Column(name = "id_rank")
+  @Column(name = "id_game")
   private Long id;
 
   @Column(name = "player")

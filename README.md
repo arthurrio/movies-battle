@@ -1,5 +1,9 @@
 # movies-battle
 
+### Pendente
+- [ ] Organizar/incrementar documentação do swagger
+- [ ] Ajustar Rank para atualizar pontuação se baseando na quantidade de acerto. Formula = (Qtd_de_acertos/n_partidas) * 100
+- [ ] Atingir 80% de coverage
 
 ### Build
 
@@ -11,6 +15,8 @@ http://localhost:8080/swagger-ui.html
 
 ### Massa de dados
 massa de dados foi gerada a partir da API https://www.omdbapi.com/
+
+[Utilizada classe a OmdbApiClientUtil para criar inserts a parir da API](https://github.com/arthurrio/movies-battle/blob/main/src/main/java/com/letscode/moviesbattle/util/OmdbApiClientUtil.java) 
 
 Foi utilizado 2 Chamadas, a primeira para coletar uma lista de filmes, e a massa foi gerada até a página
 30, acho que é suficiente para um teste, lembrando que quanto maior a massa, mais tempo leva para o sistema iniciar.

@@ -3,6 +3,7 @@
 ### Pendente
 - [ ] Organizar/incrementar documentação do swagger
 - [ ] Ajustar Rank para atualizar pontuação se baseando na quantidade de acerto. Formula = (Qtd_de_acertos/n_partidas) * 100
+- [ ] Criar testes de intergação para as APIs que estão sem
 - [ ] Atingir 80% de coverage
 - [ ] Tratativa de exceptions não esperadas nos retornos da API
 

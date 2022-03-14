@@ -23,13 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
+import static com.letscode.moviesbattle.service.GameRoundService.OPTION_1;
+import static com.letscode.moviesbattle.service.GameRoundService.OPTION_2;
+
 @RestController
 @RequestMapping(path = "/api/game")
 @AllArgsConstructor
 public class GameRestController {
 
-  public static final int OPTION_2 = 2;
-  public static final int OPTION_1 = 1;
   public static final int ZERO_POINTS = 0;
 
   private GameService gameService;

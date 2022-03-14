@@ -1,11 +1,13 @@
 package com.letscode.moviesbattle.service;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
 import javax.transaction.Transactional;
 
+import com.letscode.moviesbattle.entity.GameEntity;
 import com.letscode.moviesbattle.entity.GameRoundEntity;
 import com.letscode.moviesbattle.entity.MovieEntity;
 import com.letscode.moviesbattle.repository.GameRepository;
@@ -22,7 +24,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GameRoundService {
 
+  public static final int OPTION_2 = 2;
+  public static final int OPTION_1 = 1;
   public static final int MAX_MOVIE_ID = 114;
+  public static final int RIGHT_ANSWER = 3;
+  public static final int WRONG_ANSWER = 0;
+  public static final int LIMIT_WRONG_ANSWER = 3;
   private final GameRoundRepository gameRoundRepository;
   private final GameRepository gameRepository;
   private final MovieRepository movieRepository;
@@ -59,12 +66,30 @@ public class GameRoundService {
     return round;
   }
 
+  @Transactional
   public GameRoundEntity submitOption(Long gameId, String player, Long round, Integer option) {
 
     final var gameRound = gameRoundRepository.findGameRoundEntityByPlayerAndGameIdAndRoundNumber
         (player, gameId, round);
 
     gameRound.setAnswer(option);
+
+    final var movie1 = movieRepository.findById(gameRound.getMovie1Id());
+    final var movie2 = movieRepository.findById(gameRound.getMovie2Id());
+    GameEntity game = gameRepository.findByEndIsNullAndPlayerAndId(player, gameId);
+
+    if(movie1.get().getPoint()>movie2.get().getPoint()){
+
+      if(OPTION_1 == option) {
+        gameRound.setPoint(RIGHT_ANSWER);
+        game.setTotalPoint(game.getTotalRound()+RIGHT_ANSWER);
+      }else {
+        gameRound.setPoint(WRONG_ANSWER);
+        if(gameRoundRepository.findAllByGameIdAndPlayerAndAndPoint(gameId,player,WRONG_ANSWER).size()== LIMIT_WRONG_ANSWER){
+          game.setEnd(LocalDateTime.now());
+        }
+      }
+    }
 
     return gameRound;
   }

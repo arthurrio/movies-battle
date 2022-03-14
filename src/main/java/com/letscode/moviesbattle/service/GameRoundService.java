@@ -72,6 +72,14 @@ public class GameRoundService {
     final var gameRound = gameRoundRepository.findGameRoundEntityByPlayerAndGameIdAndRoundNumber
         (player, gameId, round);
 
+    if(Objects.isNull(gameRound))
+      return null;
+
+    if(Objects.nonNull(gameRound.getPoint()) && Objects.nonNull(gameRound.getAnswer()))
+      return gameRound;
+
+//    this.findGameRoundByGame(gameId,player);
+
     gameRound.setAnswer(option);
 
     final var movie1 = movieRepository.findById(gameRound.getMovie1Id());
@@ -114,7 +122,6 @@ public class GameRoundService {
         movieId2 = random.nextInt(MAX_MOVIE_ID);
         movie2 = movieRepository.findById(movieId2);
       } while (movie2.isEmpty() || movie2.get().equals(movie1.get()));
-
 
       gameRoundCheck = gameRoundRepository.findGameRoundEntityByGameIdAndAndMovie1IdAndMovie2Id(gameId, movieId1, movieId2);
 

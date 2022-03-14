@@ -37,7 +37,7 @@ public class GameRoundService {
 
       if (Objects.nonNull(game)) {
 
-        MovieShuffle movieShuffle = shuffle(gameId);
+        MovieShuffle movieShuffle = shuffleMovie(gameId);
 
 
         // Criar Round
@@ -70,7 +70,7 @@ public class GameRoundService {
   }
 
 
-  public MovieShuffle shuffle (Long gameId) {
+  public MovieShuffle shuffleMovie(Long gameId) {
 
     Random random = new Random();
     int movieId1, movieId2;
@@ -80,15 +80,15 @@ public class GameRoundService {
     GameRoundEntity gameRoundCheckReverse;
     Optional<MovieEntity> movie2;
     do {
-      movieId1 = random.nextInt(MAX_MOVIE_ID);
       do {
+        movieId1 = random.nextInt(MAX_MOVIE_ID);
         movie1 = movieRepository.findById(movieId1);
       } while (movie1.isEmpty());
 
-      movieId2 = random.nextInt(MAX_MOVIE_ID);
       do {
+        movieId2 = random.nextInt(MAX_MOVIE_ID);
         movie2 = movieRepository.findById(movieId2);
-      } while (movie2.isEmpty());
+      } while (movie2.isEmpty() || movie2.get().equals(movie1.get()));
 
 
       gameRoundCheck = gameRoundRepository.findGameRoundEntityByGameIdAndAndMovie1IdAndMovie2Id(gameId, movieId1, movieId2);

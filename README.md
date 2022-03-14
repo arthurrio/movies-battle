@@ -18,7 +18,8 @@ Foi utilizado 2 Chamadas, a primeira para coletar uma lista de filmes, e a massa
 - https://www.omdbapi.com/?apikey=[apiToken]&s=spider&type=movie&page=1
 - http://www.omdbapi.com/?i=tt0164334&plot=full
 
-### Libs utilizadas
+### Tecnologias utilizadas
+- Java 11
 - Spring Data
 - Spring Boot
 - Spring Security

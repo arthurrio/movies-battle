@@ -24,7 +24,7 @@ public class GameRoundServiceTest {
 
     // arrange
     final var expected = GameRoundEntity.builder()
-        .id(2L)
+        .id(32L)
         .gameId(5L)
         .movie1Id(5)
         .movie2Id(6)
@@ -48,7 +48,7 @@ public class GameRoundServiceTest {
 
     // arrange
     final var expected = GameRoundEntity.builder()
-        .id(4L)
+        .id(43L)
         .gameId(5L)
         .movie1Id(35)
         .movie2Id(36)
@@ -87,7 +87,6 @@ public class GameRoundServiceTest {
 
     // assert
     Assertions.assertEquals(expected.getGameId(),result.getGameId());
-    Assertions.assertEquals(expected.getId(),result.getId());
     Assertions.assertEquals(expected.getPlayer(),result.getPlayer());
     Assertions.assertEquals(expected.getRoundNumber(),result.getRoundNumber());
     Assertions.assertEquals(expected.getPoint(),result.getPoint());
@@ -97,7 +96,7 @@ public class GameRoundServiceTest {
 
   @Test
   @Sql(scripts = {"classpath:sql/erase-data.sql"})
-  @Sql(scripts = {"classpath:sql/gameroundservice/insert-three-sample-gameround-for-shuffle.sql"})
+  @Sql(scripts = {"classpath:sql/gameroundservice/insert-three-sample-gameround-for-shuffle-stress.sql"})
   @Sql(scripts = {"classpath:sql/gameroundservice/insert-movie-for-shuffle-stress.sql"})
   public void shouldShuffleTheMoviesWhenJustHaveOneOption() {
 
@@ -118,9 +117,7 @@ public class GameRoundServiceTest {
     final var result = gameRoundService.findGameRoundByGame(5L,"test");
 
     // assert
-    Assertions.assertEquals(expected,result);
     Assertions.assertEquals(expected.getGameId(),result.getGameId());
-    Assertions.assertEquals(expected.getId(),result.getId());
     Assertions.assertEquals(expected.getPlayer(),result.getPlayer());
     Assertions.assertEquals(expected.getRoundNumber(),result.getRoundNumber());
     Assertions.assertEquals(expected.getPoint(),result.getPoint());

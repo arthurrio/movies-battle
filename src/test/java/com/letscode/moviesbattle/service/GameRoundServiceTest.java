@@ -147,7 +147,7 @@ public class GameRoundServiceTest {
         .build();
 
     // act
-    final var result = gameRoundService.submitOption(5L, TEST_PLAYER, 3L, 1);
+    final var result = gameRoundService.submitOption(5L, TEST_PLAYER,  1);
 
     // assert
     Assertions.assertEquals(expected.getGameId(), result.getGameId());
@@ -178,7 +178,7 @@ public class GameRoundServiceTest {
         .build();
 
     // act
-    final var result = gameRoundService.submitOption(5L, TEST_PLAYER, 3L, 2);
+    final var result = gameRoundService.submitOption(5L, TEST_PLAYER,  2);
 
     // assert
     Assertions.assertEquals(expected.getGameId(), result.getGameId());
@@ -210,7 +210,7 @@ public class GameRoundServiceTest {
         .build();
 
     // act
-    final var result = gameRoundService.submitOption(5L, TEST_PLAYER, 4L, 2);
+    final var result = gameRoundService.submitOption(5L, TEST_PLAYER,  2);
     final var gameResult = gameRepository.findById(5L);
 
     // assert

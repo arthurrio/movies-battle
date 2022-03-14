@@ -54,5 +54,17 @@ public class GameRestControllerTest {
         .then().statusCode(HttpStatus.SC_OK);
   }
 
+  @Test
+  public void shouldReturnOkStatusWhenAuthApproveForDelete() {
+    given().auth().basic("user", "user")
+        .get("/api/game")
+        .then().statusCode(HttpStatus.SC_OK);
+
+    given().auth().basic("user", "user")
+        .delete("/api/game")
+        .then().statusCode(HttpStatus.SC_OK);
+
+  }
+
 
 }

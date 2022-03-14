@@ -67,10 +67,10 @@ public class GameRoundService {
   }
 
   @Transactional
-  public GameRoundEntity submitOption(Long gameId, String player, Long round, Integer option) {
+  public GameRoundEntity submitOption(Long gameId, String player, Integer option) {
 
-    final var gameRound = gameRoundRepository.findGameRoundEntityByPlayerAndGameIdAndRoundNumber
-        (player, gameId, round);
+    final var gameRound = this.findGameRoundByGame(gameId,player);
+
 
     if(Objects.isNull(gameRound))
       return null;
@@ -78,7 +78,7 @@ public class GameRoundService {
     if(Objects.nonNull(gameRound.getPoint()) && Objects.nonNull(gameRound.getAnswer()))
       return gameRound;
 
-//    this.findGameRoundByGame(gameId,player);
+
 
     gameRound.setAnswer(option);
 

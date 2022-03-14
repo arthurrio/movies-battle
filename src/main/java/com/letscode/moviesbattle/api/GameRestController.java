@@ -3,6 +3,7 @@ package com.letscode.moviesbattle.api;
 import java.util.Objects;
 
 import com.letscode.moviesbattle.entity.GameEntity;
+import com.letscode.moviesbattle.repository.MovieRepository;
 import com.letscode.moviesbattle.service.GameRoundService;
 import com.letscode.moviesbattle.service.GameService;
 import com.letscode.moviesbattle.vo.request.GamePostRequest;
@@ -35,6 +36,7 @@ public class GameRestController {
 
   private GameService gameService;
   private GameRoundService gameRoundService;
+  private MovieRepository movieRepository;
 
   @GetMapping()
   ResponseEntity<GameEntity> findAllByPlayer(Authentication authentication) {
@@ -55,23 +57,26 @@ public class GameRestController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(GameRoundGetResponse.buildNotfound());
     }
 
-    return ResponseEntity.ok(GameRoundGetResponse.from(gameRound, "Movie 1", "Movie 2"));
+    final var title1 = movieRepository.findById(gameRound.getMovie1Id()).get().getTitle();
+    final var title2 = movieRepository.findById(gameRound.getMovie2Id()).get().getTitle();
+
+
+    return ResponseEntity.ok(GameRoundGetResponse.from(gameRound, title1, title2));
   }
 
-  @PostMapping("/{gameId}/round/{round}")
+  @PostMapping("/{gameId}/round")
   ResponseEntity<GameRoundSubmitOptionPostResponse> postOptionRound(@RequestBody GamePostRequest request,
                                                                     @PathVariable("gameId") Long gameId,
-                                                                    @PathVariable("round") Long round,
                                                                     Authentication authentication) {
 
-    if (Objects.nonNull(request.getOption()) || request.getOption() != OPTION_1 || request.getOption() != OPTION_2) {
+    if (Objects.nonNull(request.getOption()) && request.getOption() != OPTION_1 && request.getOption() != OPTION_2) {
 
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .body(GameRoundSubmitOptionPostResponse.from(request.getOption()));
 
     }
 
-    final var gameRound = gameRoundService.submitOption(gameId, authentication.getName(), round, request.getOption());
+    final var gameRound = gameRoundService.submitOption(gameId, authentication.getName(), request.getOption());
 
     return ResponseEntity.ok(GameRoundSubmitOptionPostResponse.from(gameRound.getPoint() > ZERO_POINTS));
   }

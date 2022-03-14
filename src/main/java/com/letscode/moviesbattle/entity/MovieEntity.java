@@ -24,7 +24,7 @@ public class MovieEntity {
   @GeneratedValue(generator = "id_movie_seq")
   @SequenceGenerator(name = "id_movie_seq", sequenceName = "id_movie_seq", allocationSize = 1)
   @Column(name = "id_movie")
-  private Long id;
+  private Integer id;
 
   @Column(name = "point")
   private Long point;
